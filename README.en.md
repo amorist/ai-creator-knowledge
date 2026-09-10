@@ -57,6 +57,9 @@ What the desktop does with a declaration:
   machine (your switch beats the repo's `enabled` and survives a sync), and you can **delete**
   a source the repo still declares — the machine remembers that ignore, so the next sync will
   not subscribe it again, and 「恢复被忽略的订阅」 in the rail undoes it;
+- feeds must be **public addresses**: loopback/private/link-local hosts (`localhost`, `127.x`,
+  `10.x`, `192.168.x`, `169.254.x`, `::1`, `.local`…) are skipped with a reason — the list is
+  shared and the desktop fetches what it says. Add an internal feed by hand in the panel.
 - **delete the knowledge base** and the subscriptions it introduced stay exactly as they
   are — by then they are yours.
 
