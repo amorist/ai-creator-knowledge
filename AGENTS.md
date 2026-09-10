@@ -62,8 +62,20 @@ AI 只结构化、提问、提醒，不替人编造立场。
 
 ### feeds/ —— 订阅源
 
-一个源一个 md，规范见 [docs/subscription-protocol.md](docs/subscription-protocol.md)。
+一个源一个 md，复制 [`feeds/_template.md`](feeds/_template.md) 开始；规范见
+[README](feeds/README.md) 与 [docs/subscription-protocol.md](docs/subscription-protocol.md)。
 AI 可以**建议**新源（并解释为什么值得订），是否入库由人决定。
+
+写的时候：`url` 必须是 `http(s)`；`group` 给它一个分组头；`weight` 给个排序位置
+（越小越靠前，组的顺序取组内最小 weight）；正文一句"为什么订它、要看什么"——
+这句会成为桌面上的策展理由。**不要**把带 token 的私有地址写进来。
+
+### 不要在仓库里做的事
+
+- 不要往 `learnings/` `assets/` `docs/` `profile/` 里放 `README.md` 或说明文件
+  ——每个 `.md` 都是一条会被检索的知识（`_` 前缀在这些目录里**也不隐藏**）；
+- 不要提交 `$DSH_HOME` 下的索引、缓存或同步产物；
+- 不要试图在仓库里"让桌面更新"：桌面是只读消费者，push 之后由人触发 Sync。
 
 ## 提交约定
 
@@ -79,5 +91,13 @@ AI 可以**建议**新源（并解释为什么值得订），是否入库由人�
 | 检索知识库 | `knowledge__recall({ query, domain?, origin?, source?, scope? })` |
 | 拉取最新知识库 | `knowledge__sync`（或设置页 Sync） |
 | 写入本机个人沉淀（不推送） | `knowledge__note` / `knowledge__personal` |
-| 读订阅文章 / 刷新订阅 | `inspiration__list` / `inspiration__read` / `inspiration__refresh` |
+| 读订阅文章 | `inspiration__list` / `inspiration__read` |
+| 只订阅、不发网络请求 | `inspiration__syncSources`（导入本库 `feeds/` 并订阅） |
+| 抓文章 | `inspiration__refresh`（可 `only:'knowledge'` / `'stale'` 只刷某一片） |
 | 把文章变成选题 | 灵感 reader 里的「加入选题」 |
+
+与订阅有关的几条边界（避免误操作）：
+
+- 面板里的「刷新全部」**不会**抓已被仓库撤回（已标"库已移除"）或已停用的源；
+- 仍在 `feeds/` 里声明的源，**在桌面上删不掉**——要移除就在本仓库删掉那个文件；
+- 本仓库被删掉（或不再登记为源）时，桌面已订阅的源原样保留，不会跟着消失。

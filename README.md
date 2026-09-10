@@ -7,9 +7,15 @@
 fork / clone 成你自己的 `<你的垂类>-knowledge`，填进你的技能与经验，push 回 GitHub，
 桌面上的「内容知识库」与「灵感」两个面板就会自动拿到你的技能、经验、以及**订阅源列表**。
 
-- 仓库结构规范：[SPEC.md](SPEC.md)
-- Agent 契约（AI 怎么读写本库）：[AGENTS.md](AGENTS.md)
-- **订阅源同步协议（本仓库 ↔ 桌面）**：[docs/subscription-protocol.md](docs/subscription-protocol.md)
+## 文档地图
+
+| 想知道什么 | 看哪份 |
+|---|---|
+| 我该往哪个目录写、frontmatter 每个字段什么意思 | [SPEC.md](SPEC.md)（**标准本身**） |
+| 从 0 到跑通的完整步骤、每种内容怎么写、出问题怎么办 | [docs/guide.md](docs/guide.md) |
+| AI 读写本库的规则（给 agent 看） | [AGENTS.md](AGENTS.md) |
+| 订阅链接怎么和桌面同步（**规范性契约**，改标准要改它） | [docs/subscription-protocol.md](docs/subscription-protocol.md) |
+| 一个内容生产方法论示例 | [docs/AI内容生产流水线.md](docs/AI内容生产流水线.md) |
 
 ---
 
@@ -46,8 +52,10 @@ fork / clone 成你自己的 `<你的垂类>-knowledge`，填进你的技能与�
 ├── SPEC.md                          # 仓库标准：目录 / frontmatter / 命名（先读这个）
 ├── AGENTS.md                        # Agent 契约：AI 如何读写本库
 ├── README.md / README.en.md          # 人读的说明
+├── docs/guide.md                    # 操作手册：从 0 到跑通 + 排错
 ├── feeds/                           # 订阅源：一个源一个 md，桌面「灵感」自动订阅
 │   ├── README.md                    # feeds 写法说明
+│   ├── _template.md                 # 复制它开始（`_` 开头 = 草稿，不会被订阅）
 │   └── <slug>.md
 ├── skills/                          # Agent 技能：skills/<name>/SKILL.md
 │   └── <skill-name>/SKILL.md
@@ -101,26 +109,38 @@ git add -A && git commit -m "init my knowledge base" && git push
 
 ## 订阅源（`feeds/`）
 
-一个订阅源 = 一个 markdown 文件，正文写"为什么订它、要从里面看什么"：
+一个订阅源 = 一个 markdown 文件（复制 [`feeds/_template.md`](feeds/_template.md) 开始），
+正文写"为什么订它、要从里面看什么"：
 
 ```markdown
 ---
 title: Import AI
 url: https://importai.substack.com/feed
 type: auto          # auto | rss | atom | rdf | json
-group: AI 前沿
-tags: [AI, 研究]
-enabled: true
+group: AI 前沿      # 桌面源列表里的分组头
+tags: [AI, 研究]     # 随源保存（当前不参与筛选）
+weight: 10          # 越小越靠前；组的位置取组内最小 weight
+enabled: true       # false = 停用（留文章、停止更新）
 ---
 
 每周 AI 研究综述。看模型能力边界与新论文的一句话结论，不追细节。
 ```
 
-把这行文件 push 上去，桌面「灵感」下一次刷新就会订阅它并拉到最新文章。
-**订阅链接跟着知识库一起版本化**：谁 clone 了这个仓库，谁就拿到同一套信息源。
+push 上去，到桌面 **设置 → 内容知识库 → Sync** 一次即可。**订阅链接跟着知识库一起
+版本化**：谁 clone 了这个仓库，谁就拿到同一套信息源。
+
+桌面会这样用它：
+
+- `group` 决定源列表里的**分组头**，`weight` 决定顺序（组内升序；组的位置取组内最小 weight）；
+- 正文成为这条订阅的**策展理由**——源行悬停可见，打开该源的文章时显示在标题下方；
+- 新增的源在点「从知识库同步」时会被**顺手抓一次**，不用再点「刷新全部」；
+- 仓库**撤回**一条声明 → 该源标「库已移除」：**文章留着、停止更新**；
+  写 `enabled: false` → 停用（同样留文章，任何刷新都不抓）；
+- **整个知识库删掉** → 已订阅的源**原样保留**，从此是你自己的源，随时可删。
 
 完整规则（字段、匹配与更新语义、停用与移除）见
-[docs/subscription-protocol.md](docs/subscription-protocol.md)。
+[docs/subscription-protocol.md](docs/subscription-protocol.md)，操作与排错见
+[docs/guide.md](docs/guide.md)。
 
 ---
 
@@ -134,6 +154,14 @@ enabled: true
 4. **上游只读。** 桌面应用永远不会写回本仓库——同步是单向拉取，推送永远由你发起。
 5. **可组合。** 本仓库可以作为一个「源」和别的知识库仓库并置（多源 scope），
    订阅源同理：多个仓库的 `feeds/` 会合并成一棵订阅树。
+6. **说到的字段一定生效。** 规范里承诺的每个字段都有明确的桌面行为；
+   还没被用到的（如 `tags`）会**如实标注**，而不是假装它有用。
+
+## 合规定义
+
+"符合本标准"是可检查的——见 [SPEC.md](SPEC.md) 第 6 节的**最小合规清单**：
+每个索引条目有 `title` + `summary`、技能带 `SKILL.md`、订阅有合法 `url`、
+仓库里没有桌面侧的索引产物。
 
 ## License
 

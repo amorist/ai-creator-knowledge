@@ -9,15 +9,22 @@ protocol**. Use it as a template: fork/clone it into `<your-niche>-knowledge`, f
 skills and experience, push it back to GitHub, and the desktop's *Content Knowledge* and
 *Inspiration* panels will pick up your skills, your knowledge, and **your feed list**.
 
-- Repo layout spec: [SPEC.md](SPEC.md)
-- Agent contract: [AGENTS.md](AGENTS.md)
-- **Subscription sync protocol (repo ↔ desktop)**: [docs/subscription-protocol.md](docs/subscription-protocol.md)
+## Where to look
+
+| Question | Read |
+|---|---|
+| Which directory, and what does each frontmatter field do? | [SPEC.md](SPEC.md) — the standard |
+| How do I go from zero to working, and how do I fix things? | [docs/guide.md](docs/guide.md) |
+| What rules does the AI follow when writing here? | [AGENTS.md](AGENTS.md) |
+| How do subscriptions sync to the desktop? (normative contract) | [docs/subscription-protocol.md](docs/subscription-protocol.md) |
 
 ## Layout
 
 ```
 ├── SPEC.md / AGENTS.md        # the standard + the agent contract
+├── docs/guide.md              # the practical guide (setup + troubleshooting)
 ├── feeds/<slug>.md            # one file per feed → auto-subscribed by the desktop
+├── feeds/_template.md         # copy this to start (leading `_` = draft, not subscribed)
 ├── skills/<name>/SKILL.md     # delivered as a real agent skill
 ├── templates/<name>/SKILL.md  # delivered the same way
 ├── learnings/  assets/  docs/  profile/    # indexed markdown entries (recall-able)
@@ -38,6 +45,17 @@ git add -A && git commit -m "init my knowledge base" && git push
 
 Then, in dsh-desktop: *Settings → Content Knowledge → sources → add this repo → Sync*.
 
+What the desktop does with a declaration:
+
+- `group` becomes a heading in the source list, `weight` orders it (ascending inside a
+  group; a group sits where its smallest weight puts it);
+- the body becomes the subscription's **note** — shown when hovering the row and under the
+  article title;
+- a feed the repo **withdraws** is flagged「库已移除」: its articles stay, and it stops
+  updating; `enabled: false` keeps the articles and never fetches;
+- **delete the knowledge base** and the subscriptions it introduced stay exactly as they
+  are — by then they are yours.
+
 ## Principles
 
 1. Markdown + frontmatter only — no database, no proprietary format, git-diffable.
@@ -45,3 +63,11 @@ Then, in dsh-desktop: *Settings → Content Knowledge → sources → add this r
 3. Humans own taste, AI owns tidying.
 4. The desktop is a **read-only** consumer: it never pushes back to this repo.
 5. Composable — several knowledge repos (and their `feeds/`) merge into one tree.
+6. Every documented field actually does something; anything not wired up yet (e.g. `tags`)
+   is labelled as such instead of pretending.
+
+## What "compliant" means
+
+It is checkable — see the **minimum checklist** in [SPEC.md](SPEC.md) §6: every indexed
+entry has `title` + `summary`, every skill ships a `SKILL.md`, every feed has a valid `url`,
+and no desktop-side index/build artifacts are committed.
