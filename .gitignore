@@ -1,0 +1,10 @@
+# 本地/编辑器产物
+.DS_Store
+*.swp
+.obsidian/
+.idea/
+.vscode/
+
+# 同步与索引产物（由桌面应用生成，不入库）
+*.search-index.json
+.sync-lock
