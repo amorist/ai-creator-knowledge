@@ -1,5 +1,6 @@
 # 本地/编辑器产物
 .DS_Store
+node_modules/
 *.swp
 .obsidian/
 .idea/

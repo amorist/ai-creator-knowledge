@@ -1,3 +1,13 @@
+---
+title: 使用指南：从 0 到「知识库 + 订阅」跑起来
+summary: 建库、写条目、加订阅、桌面同步与排错的完整操作手册；配合 SPEC 与订阅协议使用
+tags: [规范, 操作手册, 订阅]
+domain: [知识库, 工作流]
+kind: doc
+date: 2026-09-11
+author: 模板
+---
+
 # 使用指南：从 0 到"知识库 + 订阅"跑起来
 
 这份文档回答"**我该往哪儿写、写完会发生什么、出问题看哪里**"。
@@ -23,6 +33,7 @@ cp feeds/_template.md feeds/晚点.md   # 然后填 title / url / group / weight
 $EDITOR "learnings/钩子/前3秒说处境比说收益更留人.md"
 
 # ⑤ push
+node scripts/check-compliance.mjs      # 推送前自查一遍（零依赖）
 git add -A && git commit -m "init my knowledge base" && git push
 ```
 
@@ -190,6 +201,14 @@ enabled: true       # false = 停用（可选）
 十有八九是索引目录里的 `README.md` 或说明文件——`learnings/` `assets/` `docs/` `profile/`
 下**每个 `.md` 都是条目**（`_` 前缀在这里也不算隐藏）。目录说明请写在根 `README.md` 或
 `docs/` 里的正式文档中。
+
+**Q. 怎么一次性确认整个仓库没写错？**
+```bash
+node scripts/check-compliance.mjs
+```
+它按 SPEC 第 6 节的清单逐条检查（条目有没有 `title`/`summary`、技能有没有 `SKILL.md`
+且名字唯一、订阅 `url` 是否合法/重复……），并打印"哪个文件、为什么"。
+写完东西推之前跑一次，比等桌面报错快。
 
 **Q. 面板说"订阅清单读不出来（文件损坏）"或"由更新的版本写出"？**
 前者是 `$DSH_HOME/knowledge/feeds.json` 坏了（手动改过、或写到一半）——重新 Sync 一次会重写；

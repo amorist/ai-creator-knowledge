@@ -161,7 +161,11 @@ push 上去，到桌面 **设置 → 内容知识库 → Sync** 一次即可。*
 
 "符合本标准"是可检查的——见 [SPEC.md](SPEC.md) 第 6 节的**最小合规清单**：
 每个索引条目有 `title` + `summary`、技能带 `SKILL.md`、订阅有合法 `url`、
-仓库里没有桌面侧的索引产物。
+仓库里没有桌面侧的索引产物。清单有配套脚本，推送前跑一次：
+
+```bash
+node scripts/check-compliance.mjs     # 零依赖，逐条打印不合规的文件与原因
+```
 
 ## License
 

@@ -1,0 +1,17 @@
+# 把 SPEC 第 6 节的"最小合规清单"变成推送时的门禁：
+# 条目缺 title/summary、技能缺 SKILL.md、订阅 url 非法或重复，都会在这里红掉。
+name: compliance
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/check-compliance.mjs

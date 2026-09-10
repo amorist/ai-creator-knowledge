@@ -70,4 +70,9 @@ What the desktop does with a declaration:
 
 It is checkable — see the **minimum checklist** in [SPEC.md](SPEC.md) §6: every indexed
 entry has `title` + `summary`, every skill ships a `SKILL.md`, every feed has a valid `url`,
-and no desktop-side index/build artifacts are committed.
+and no desktop-side index/build artifacts are committed. The checklist has a script, and CI
+runs the same one:
+
+```bash
+node scripts/check-compliance.mjs     # zero dependencies; prints each violation and why
+```
