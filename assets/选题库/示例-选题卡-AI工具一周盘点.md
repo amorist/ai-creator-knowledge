@@ -6,8 +6,10 @@ domain: [AI 工具, 小红书]
 date: 2026-09-11
 author: seed
 status: develop
-sources: [https://example.com/素材来源]
+sources: []
 ---
+
+> 模板条目：素材来源链接在采集时逐条补进 `sources:`（见 `docs/AI内容生产流水线.md` 采集阶段）。
 
 ## 目标人群
 
