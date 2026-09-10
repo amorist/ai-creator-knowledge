@@ -53,6 +53,10 @@ What the desktop does with a declaration:
   article title;
 - a feed the repo **withdraws** is flagged「库已移除」: its articles stay, and it stops
   updating; `enabled: false` keeps the articles and never fetches;
+- both of those are overridable locally: right-click a source to **disable/enable** it on this
+  machine (your switch beats the repo's `enabled` and survives a sync), and you can **delete**
+  a source the repo still declares — the machine remembers that ignore, so the next sync will
+  not subscribe it again, and 「恢复被忽略的订阅」 in the rail undoes it;
 - **delete the knowledge base** and the subscriptions it introduced stay exactly as they
   are — by then they are yours.
 
