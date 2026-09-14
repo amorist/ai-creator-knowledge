@@ -1,0 +1,47 @@
+{
+  "name": "三卡三点（示例草稿）",
+  "summary": "竖屏三张字卡：片名一句 + 两个要点，卡间十字叠化，收尾落一次样式令牌。",
+  "structure": "片名卡（0.0–3.2s）→ 叠化 → 要点 A 卡（3.2–6.4s）→ 叠化 → 要点 B 卡（6.4–9.6s）",
+  "whenToUse": "手上只有三句文案、要一支 10 秒内的竖屏字卡片时用它；每张卡一句，不要塞第二句。",
+  "notFor": "有口播或采访素材时不要用它（这支片子没有音轨位）。",
+  "canvas": { "width": 1080, "height": 1920, "fps": 30 },
+  "durationSeconds": 9.6,
+  "slots": [
+    {
+      "key": "title",
+      "label": "片名",
+      "hint": "第一张卡上的大字，建议 8 字以内",
+      "kind": "text",
+      "fallback": "三句话讲清"
+    },
+    {
+      "key": "point-a",
+      "label": "要点 A",
+      "hint": "第二张卡的一句话，建议 12 字以内",
+      "kind": "text",
+      "fallback": "先说结论"
+    },
+    {
+      "key": "point-b",
+      "label": "要点 B",
+      "hint": "第三张卡的一句话，建议 12 字以内",
+      "kind": "text",
+      "fallback": "再给证据"
+    }
+  ],
+  "tokens": { "accent": "#E0714A", "ink": "#15171C", "surface": "#F5EFE6" },
+  "fonts": { "heading": "lib:zcool-kuaile" },
+  "sfx": [{ "soundId": "whoosh", "atSeconds": 3.2 }, { "soundId": "whoosh", "atSeconds": 6.4 }],
+  "ops": [
+    { "op": "insertSolid", "id": "bg-1", "color": "#15171C", "name": "底 · 片名", "startFrame": 0, "durationFrames": 96 },
+    { "op": "insertCaption", "id": "cap-1", "text": "{{title}}", "startFrame": 12, "durationFrames": 72 },
+    { "op": "insertSolid", "id": "bg-2", "color": "#F5EFE6", "name": "底 · 要点 A", "startFrame": 96, "durationFrames": 96 },
+    { "op": "insertCaption", "id": "cap-2", "text": "{{point-a}}", "startFrame": 108, "durationFrames": 72 },
+    { "op": "insertSolid", "id": "bg-3", "color": "#F5EFE6", "name": "底 · 要点 B", "startFrame": 192, "durationFrames": 96 },
+    { "op": "insertCaption", "id": "cap-3", "text": "{{point-b}}", "startFrame": 204, "durationFrames": 72 },
+    { "op": "addTransition", "id": "tr-1", "kind": "crossfade", "outgoingItemId": "bg-1", "incomingItemId": "bg-2", "durationFrames": 9 },
+    { "op": "addTransition", "id": "tr-2", "kind": "crossfade", "outgoingItemId": "bg-2", "incomingItemId": "bg-3", "durationFrames": 9 },
+    { "op": "applyTokens", "tokens": { "accent": "#E0714A", "ink": "#15171C" } },
+    { "op": "setProjectFonts", "heading": "lib:zcool-kuaile", "body": "system-ui" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "示例包",
+  "summary": "格式样例：一张署名条。复制整个 _examples/ 目录、去掉开头的下划线就能用。",
+  "version": 1,
+  "license": "house",
+  "source": "https://github.com/amorist/ai-creator-knowledge",
+  "author": "你"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "id": "example-matte-lite",
+      "label": "人像抠像 · 示例轻量档",
+      "kind": "model",
+      "note": "示例条目：形状对了就能被设置页读成一条可下载权重。",
+      "capabilities": ["matte"],
+      "url": "https://example.com/models/example-matte-lite.onnx",
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "bytes": 12944318,
+      "license": "Apache-2.0",
+      "source": "https://example.com/example-matte"
+    },
+    {
+      "id": "example-denoise-tiny",
+      "label": "语音降噪 · 示例轻量档",
+      "kind": "model",
+      "capabilities": ["denoise"],
+      "url": "https://example.com/models/example-denoise-tiny.onnx",
+      "sha256": "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210",
+      "bytes": 3145728,
+      "license": "MIT",
+      "source": "https://example.com/example-denoise"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "label": "柔边擦除（示例草稿）",
+  "defaultDurationSeconds": 0.6,
+  "note": "一条柔边擦除：一层渐变软边的遮罩层扫过。方向由 `directionSign` 决定（scaleX(-1) 就把左右镜像过来）—— 一份声明同时覆盖 left / right，复制去掉 _examples/ 前缀即可用。",
+  "directions": ["left", "right"],
+  "defaultDirection": "right",
+  "properties": [
+    {
+      "key": "edge",
+      "label": "软边宽度",
+      "kind": "percent",
+      "default": 18,
+      "min": 4,
+      "max": 45,
+      "step": 1,
+      "unit": "%",
+      "note": "擦除前沿的羽化宽度；越大越过越柔，0 就是一条硬边"
+    },
+    {
+      "key": "tint",
+      "label": "前沿色",
+      "kind": "color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "layers": [
+    {
+      "id": "wipe",
+      "css": "position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg, rgba(255,255,255,0) calc(100% - {{edge}}), {{tint}} 100%);opacity:0;transform:scaleX({{directionSign}});"
+    }
+  ],
+  "styles": [
+    {
+      "on": "outgoing",
+      "css": "will-change:transform,opacity;"
+    }
+  ],
+  "tweens": [
+    {
+      "on": "wipe",
+      "from": { "opacity": 0, "x": "-18%" },
+      "to": { "opacity": 0.9, "x": "18%" },
+      "duration": 0.5,
+      "ease": "power2.inOut"
+    },
+    {
+      "on": "wipe",
+      "to": { "opacity": 0 },
+      "at": 0.5,
+      "duration": 0.5,
+      "ease": "power2.out"
+    },
+    {
+      "on": "outgoing",
+      "from": { "opacity": 1 },
+      "to": { "opacity": 0 },
+      "duration": 1,
+      "ease": "sine.inOut"
+    },
+    {
+      "on": "incoming",
+      "from": { "opacity": 0 },
+      "to": { "opacity": 1 },
+      "duration": 1,
+      "ease": "sine.inOut"
+    }
+  ]
+}

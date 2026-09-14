@@ -1,0 +1,29 @@
+{
+  "kind": "video-source/account-visual",
+  "schema": 1,
+  "title": "账号视觉令牌",
+  "summary": "本账号成片的统一皮：强调色 / 墨色 / 面板 / 可读底 / 字库 / 圆角 / 材质，外加字幕样式与位置带。",
+  "tags": ["视频", "视觉", "令牌", "品牌"],
+  "domain": ["短视频"],
+  "owner": "人",
+  "updated": "2026-09-15",
+  "usage": "生成成片前先读它：把 tokens 里的键**逐键**喂给 videoStudio__timeline_apply 的 {op:\"applyTokens\", tokens:{…}}；caption 喂 {op:\"applyCaptionStyle\", presetId, band, scale}。字段名以工作台为准（references/catalog 的令牌一节），这里只定值。换一档皮就改这份文件、提交，所有片子下次生成时跟着变。",
+  "tokens": {
+    "accent": "#E0714A",
+    "ink": "#15171c",
+    "muted": "#6b6a66",
+    "surface": "#fffffff2",
+    "track": "#15171c1f",
+    "onAccent": "#ffffff",
+    "plate": "#ffffffa8",
+    "halo": "#ffffffb8",
+    "radius": 1.1,
+    "material": "flat"
+  },
+  "caption": {
+    "presetId": "Persona",
+    "band": { "x": 50, "y": 80, "width": 68 },
+    "scale": 1
+  },
+  "_note": "material 是给表面/可读底/晕/轨道定基调的档（flat | paper | glass | grid | film），它不决定强调色；accent 才是本账号最响的那一处颜色。要固定全片字库时再加 font 键，值必须是工作台的字库 id（用 videoStudio__font 列清单取 id），别写字体名。"
+}

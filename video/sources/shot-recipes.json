@@ -1,0 +1,66 @@
+{
+  "kind": "video-source/shot-recipes",
+  "schema": 1,
+  "title": "分镜配方（选题类型 → 用哪支模板）",
+  "summary": "把「我要讲什么」映射到工作台现成模板的配方：什么场合用哪支、槽位取值有什么约定、别用哪支。",
+  "tags": ["视频", "模板", "配方", "分镜"],
+  "domain": ["短视频"],
+  "owner": "人",
+  "updated": "2026-09-15",
+  "usage": "挑模板时读它：按 when 找到一条配方，拿它的 templateId 去 videoStudio__template_film 核对（回执里有槽位表与该模板的技能名），需要细节就用 skill 加载 video-template-<slug>。**槽位键 / 模板结构 / 音效的权威永远是工作台回执与那一支技能**，这份文件只写我们的约定与偏好；模板改了以工作台为准。",
+  "recipes": [
+    {
+      "id": "talking-40s",
+      "when": "有一段口播稿 + 出镜素材，要 40 秒上下的竖屏成片",
+      "templateId": "tpl:talk-promo",
+      "slotConventions": {
+        "script1": "钩子：先说结论，一行一句",
+        "stat": "只放一个最硬的数字（多过一个是自夸）",
+        "cta": "一句话，与下一条内容相关（不写「求关注」）"
+      },
+      "avoid": "没有出镜素材时改用 tpl:image-text-fastcut（纯图快剪）"
+    },
+    {
+      "id": "daily-50s",
+      "when": "高频日更的口播，节奏比宣传片更快、要点更碎",
+      "templateId": "tpl:koubo-daily",
+      "slotConventions": { "hook": "一个反常识的断言", "points": "每行一个要点，最多 3 行" },
+      "avoid": "要完整展示产品时改用 tpl:product-launch"
+    },
+    {
+      "id": "tutorial-screen",
+      "when": "软件操作教学：出镜 + 录屏 + 步骤",
+      "templateId": "tpl:screen-tutorial",
+      "slotConventions": { "steps": "一步一行，动作动词开头", "stepsTitle": "这一步要达成什么" },
+      "avoid": "没有录屏素材时改用 tpl:talk-promo"
+    },
+    {
+      "id": "launch",
+      "when": "发布 / 上新：痛点 → 亮相 → 对比 → 数据 → 见证",
+      "templateId": "tpl:product-launch",
+      "slotConventions": { "stat": "给一个可核对的数字，不给形容词", "painText": "写用户的原话，不写我们的总结" },
+      "avoid": "只想讲清一个方法时改用 tpl:talking-head-tutorial"
+    },
+    {
+      "id": "data-story",
+      "when": "用一组数字讲一个结论",
+      "templateId": "tpl:data-story",
+      "slotConventions": { "chartData": "每行「名称 数值」，最多 6 行", "metricValue": "只放一个最硬的数字" },
+      "avoid": "没有数据时别硬凑——先做内容，别做数据片"
+    },
+    {
+      "id": "image-fastcut",
+      "when": "只有一组图 / 截图，要 30 秒内逐图带字的竖屏快剪",
+      "templateId": "tpl:image-text-fastcut",
+      "slotConventions": { "line1": "一句话不超过 12 字（line1…line7 与 img1…img7 一一对应）" },
+      "avoid": "要讲清复杂逻辑时图片快切讲不明白"
+    },
+    {
+      "id": "interview-slice",
+      "when": "把访谈 / 播客切成 45 秒上下的横屏切片",
+      "templateId": "tpl:interview-clip",
+      "slotConventions": { "speakerA": "写清说话人（不用「嘉宾」），roleA 写身份", "quoteText": "引原话，不改写" },
+      "avoid": "单人出镜时改用 tpl:talk-promo"
+    }
+  ]
+}

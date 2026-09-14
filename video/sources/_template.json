@@ -1,0 +1,14 @@
+{
+  "kind": "video-source/<name>",
+  "schema": 1,
+  "title": "（示例）这份源的标题",
+  "summary": "一句话说清这份源给什么——它决定 agent 什么时候会来读它。",
+  "tags": ["视频"],
+  "domain": ["短视频"],
+  "owner": "人",
+  "updated": "2026-09-15",
+  "usage": "什么时候读它、读到之后怎么用（写给 agent 看）。字段名以视频工作台为准：色号/预设 id/模板 id/槽位键在工作台的 references/catalog 与 template_film 回执里查。",
+  "payload": {
+    "这里放你自己的字段": "自由扩展，下游容忍未知字段"
+  }
+}

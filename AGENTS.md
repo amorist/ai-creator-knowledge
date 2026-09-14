@@ -60,6 +60,42 @@ AI 只结构化、提问、提醒，不替人编造立场。
 `description` 写清「做什么 + 什么时候用」——它是 agent 选择技能的**唯一**依据。
 技能正文按「何时用 → 输入 → 步骤 → 输出 → 反例」组织。
 
+### video/ —— 视频垂类（技能 + JSON 源）
+
+专门生成视频的东西放这里，**两类**（判据是形状，不是前缀）：
+
+- `video/skills/<name>/SKILL.md` —— **视频生成技能**：与 `skills/` 同规则（必须有 `SKILL.md`、
+  `_` 开头是草稿、平铺部署）；正文写法同上一节。名字别用 `video-template-*` / `video-clip-*`
+  —— 那两个前缀由视频工作台按它自己的模板注册表生成。
+- `video/sources/<id>.json` —— **JSON 源**（色号、平台取舍、分镜配方…）：**不部署**，
+  进索引供 `knowledge__recall` 召回；必填 `kind` / `schema` / `title` / `summary` / `usage`。
+  复制 [`video/sources/_template.json`](video/sources/_template.json) 起手。
+
+分工：**值写在 `video/sources/`，字段名以视频工作台为准**（`accent` / `presetId` / 模板 id /
+槽位键都在工作台那侧查）。引用模板按名字引用，**不要抄它的槽位表**——那会漂。
+
+AI 可以**建议**改这两类文件（并给出理由与对照），但**值由人定**（同 `profile/` 的规矩）；
+桌面永不写回本仓库。
+
+### video/resources/ —— 资源包（组件本体 / 色表 / 字库）
+
+技能写"怎么做"，这里给"用什么"。工作台会把它**载入自己的注册表**，所以格式必须与工程一致：
+
+- `component-packs/<pack>/<slug>/`：一张卡**两半** —— `component.json`（渲染半，与「我的模板」
+  同形）与 `card.json`（库半：`category` / `role` / `slot` / `quota` / `useCase` / `selfChecks` 必填）。
+  缺一半就是"插不进"或"筛不到"，两边都会报错。id 由目录名定：`kb-<包>-<卡>`；
+- `luts/<slug>/*.cube`；`sfx/<slug>/`（`sound.json` + 音频，`durationInSeconds` 必填）；
+  `transitions/` · `effects/`（layers + 静态 CSS + 白名单补间，补间里不许出现
+  `display` / `visibility` / `filter` / `clipPath` / `backdropFilter` / `mask`）；
+  `shaders/<slug>/{shader.glsl,spec.json}`（只写片元主体，禁 `#version` / `uTime` / `gl_FragCoord`）；
+  `templates/<slug>/template.json`（op 白名单，不许套模板、不许删东西）；
+- `fonts.json` 与 `models.json` **只声明 id，不搬字节**（字库与模型都在工作台里按需下载）；
+- 一份 `_` 前缀的样例在 `video/resources/_examples/`（**两边都跳过**，但工作台的用例会拿它跑真实载入器）；
+- **词表以工作台为准**（`component_find` 的参数说明 / `references/catalog`）—— 本仓库不抄词表；
+- 复制 `video/resources/_examples/` 起手（`_` 前缀是草稿，两边都跳过）；溯源与许可照 M1。
+
+AI 可以**起草**组件与卡（改 JSON、补用例），入库与许可是人的判断：外部代码/素材必须能回到来源。
+
 ### feeds/ —— 订阅源
 
 一个源一个 md，复制 [`feeds/_template.md`](feeds/_template.md) 开始；规范见

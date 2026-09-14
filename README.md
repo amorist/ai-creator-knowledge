@@ -35,6 +35,8 @@ fork / clone 成你自己的 `<你的垂类>-knowledge`，填进你的技能与�
 |---|---|---|---|
 | 技能 | `skills/` | AI 写、你审 | 同步成 agent skill，对话里直接可用 |
 | 模板 | `templates/` | 你定 | 同上（模板也是可调用的 skill） |
+| **视频** | **`video/`** | 你定（AI 辅助） | `video/skills/` 同步成技能；`video/sources/*.json` 进索引，做视频时被 `knowledge__recall` 召回 |
+| **资源包** | **`video/resources/`** | 你定（AI 辅助） | **九类全部物化进工作台并载入** —— 组件、LUT、音效、转场、特效、着色器、成片模板、字库与模型声明；格式见 [video/resources/README.md](video/resources/README.md) |
 | 经验 | `learnings/` | AI 编译、你确认 | 进 BM25 索引，`knowledge__recall` 可召回 |
 | 素材 | `assets/` | AI 整理 | 同上 |
 | 长文 | `docs/` | 人写 | 同上 |
@@ -61,6 +63,14 @@ fork / clone 成你自己的 `<你的垂类>-knowledge`，填进你的技能与�
 │   └── <skill-name>/SKILL.md
 ├── templates/                       # 参考模板：templates/<name>/SKILL.md
 │   └── <template-name>/SKILL.md
+├── video/                           # 视频垂类：专门生成视频的技能 + JSON 源
+│   └── ...
+│   ├── resources/                   # 资源包：组件包 / LUT / 音效 / 转场 / 特效 / 着色器 / 成片模板 / 字库 · 模型声明
+│   │   ├── README.md                # 类型表与格式（先读它）
+│   │   └── _examples/               # 格式样例（`_` 前缀 = 草稿，不会生效）
+│   ├── README.md                    # 两类东西怎么分（先读它）
+│   ├── skills/                      # 视频生成技能（与 skills/ 同规则部署）
+│   └── sources/                     # JSON 源：账号视觉令牌 / 平台规格 / 分镜配方（不部署，进索引）
 ├── learnings/                       # 经验沉淀（拆解 / 方法论 / 复盘）——进索引
 ├── assets/                          # 素材清单（选题库 / 案例 / 金句 / 灵感）——进索引
 ├── docs/                            # 方法论、平台规则、长文——进索引
@@ -68,8 +78,10 @@ fork / clone 成你自己的 `<你的垂类>-knowledge`，填进你的技能与�
 ```
 
 `learnings/` `assets/` `docs/` `profile/` 里的**每一个 `.md` 都是一条可召回的知识条目**，
-靠 frontmatter 说话；`skills/` `templates/` 里的每一个 `<name>/SKILL.md` 会**原样平铺**
-成桌面上的一个 agent skill。字段规范见 [SPEC.md](SPEC.md)。
+靠 frontmatter 说话；`skills/` `templates/` `video/skills/` 里的每一个 `<name>/SKILL.md`
+会**原样平铺**成桌面上的一个 agent skill；
+`video/sources/*.json` 是**机器读的数据**（不是技能）：它进同一份索引，做视频时被召回。
+字段规范见 [SPEC.md](SPEC.md)，视频那两类怎么分见 [video/README.md](video/README.md)。
 
 ---
 
@@ -100,8 +112,11 @@ git add -A && git commit -m "init my knowledge base" && git push
 
 同步之后：
 
-- `skills/` `templates/` 里的技能进入 agent 技能目录，对话里直接可用；
+- `skills/` `templates/` `video/skills/` 里的技能进入 agent 技能目录，对话里直接可用；
+- `video/resources/**` 被物化到工作台（`$DSH_HOME/video-studio/resources/`）并**载入它的注册表** ——
+  组件包里的卡直接出现在资源库与 `videoStudio__component_list` / `component_find` 里；
 - `learnings/` `assets/` `docs/` `profile/` 进入本地索引，`knowledge__recall` 可检索；
+  `video/sources/*.json`（视频用的令牌 / 平台规格 / 分镜配方）也进这份索引，但**不会被当成技能**；
 - `feeds/` 里的订阅源被「灵感」面板读出并**自动订阅 + 拉取更新**（见
   [订阅协议](docs/subscription-protocol.md)）。
 

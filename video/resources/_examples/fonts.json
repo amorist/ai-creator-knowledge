@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "fonts": [
+    { "id": "lib:zcool-kuaile", "label": "站酷快乐体", "usage": "标题卡 / 花字（按需下载）" },
+    { "id": "google:Inter", "label": "Inter", "usage": "数据卡的数字与英文" }
+  ]
+}

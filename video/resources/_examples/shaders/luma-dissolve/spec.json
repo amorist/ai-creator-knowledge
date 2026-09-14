@@ -1,0 +1,7 @@
+{
+  "label": "亮度溶解（示例草稿）",
+  "note": "按 uFrom 的亮度做阈值溶解：暗部先被 uTo 吃掉，阈值随 uProgress 扫到亮部；软边走 smoothstep。",
+  "defaultDurationSeconds": 0.7,
+  "directions": ["left", "right"],
+  "defaultDirection": "right"
+}

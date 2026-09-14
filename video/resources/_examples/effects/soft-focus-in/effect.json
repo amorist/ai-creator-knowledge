@@ -1,0 +1,64 @@
+{
+  "label": "柔焦入场（示例草稿）",
+  "mode": "in-clip",
+  "group": "effect",
+  "defaultDurationSeconds": 0.8,
+  "note": "片段的柔焦淡入：一层静态径向光晕压在片段上（柔边靠静态 CSS 的 radial-gradient，不进补间），片段本身做极轻的缩放落位。",
+  "properties": [
+    {
+      "key": "peak",
+      "label": "光晕峰值",
+      "kind": "percent",
+      "default": 42,
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "key": "wash",
+      "label": "光晕色",
+      "kind": "color",
+      "default": "#FFF6EC"
+    },
+    {
+      "key": "settle",
+      "label": "落位幅度",
+      "kind": "number",
+      "default": 1.03,
+      "min": 1,
+      "max": 1.12,
+      "step": 0.01,
+      "unit": "×"
+    }
+  ],
+  "layers": [
+    {
+      "id": "wash",
+      "css": "position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(60% 60% at 50% 46%, {{wash}} 0%, rgba(255,255,255,0) 72%);mix-blend-mode:screen;"
+    }
+  ],
+  "tweens": [
+    {
+      "on": "wash",
+      "from": { "opacity": 0 },
+      "to": { "opacity": 0.42 },
+      "duration": 0.45,
+      "ease": "power2.out"
+    },
+    {
+      "on": "wash",
+      "to": { "opacity": 0 },
+      "at": 0.45,
+      "duration": 0.55,
+      "ease": "power2.inOut"
+    },
+    {
+      "on": "self",
+      "from": { "opacity": 0.35, "scale": 1.03 },
+      "to": { "opacity": 1, "scale": 1 },
+      "duration": 1,
+      "ease": "power2.out"
+    }
+  ]
+}

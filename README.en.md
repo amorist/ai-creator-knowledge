@@ -27,12 +27,19 @@ skills and experience, push it back to GitHub, and the desktop's *Content Knowle
 ├── feeds/_template.md         # copy this to start (leading `_` = draft, not subscribed)
 ├── skills/<name>/SKILL.md     # delivered as a real agent skill
 ├── templates/<name>/SKILL.md  # delivered the same way
+├── video/skills/<name>/SKILL.md   # video-generation skills (delivered the same way)
+├── video/sources/<id>.json    # video JSON sources (NOT skills; indexed for recall)
+├── video/resources/           # resource packs: component packs, LUTs, SFX, transitions, effects,
+│                              #   shaders, film templates, font & model declarations
+│   └── _examples/             # format examples (leading `_` = draft, never loaded)
 ├── learnings/  assets/  docs/  profile/    # indexed markdown entries (recall-able)
 ```
 
 Each `.md` under the four indexed directories is one recallable entry defined by its
-frontmatter; each `skills/<name>/SKILL.md` is deployed as an agent skill; each `feeds/<slug>.md`
-becomes a live subscription on the desktop.
+frontmatter; each `skills/<name>/SKILL.md` (and `video/skills/<name>/SKILL.md`) is deployed as
+an agent skill; `video/sources/*.json` are machine-readable inputs — indexed for recall, never
+deployed as skills (see [video/README.md](video/README.md)); each `feeds/<slug>.md` becomes a
+live subscription on the desktop.
 
 ## Quick start
 

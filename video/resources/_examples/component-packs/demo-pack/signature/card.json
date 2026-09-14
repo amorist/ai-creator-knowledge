@@ -1,0 +1,16 @@
+{
+  "category": "文字",
+  "tags": ["署名", "下沿条", "示例"],
+  "useCase": "画面左下要署一个人的名字与身份、又不想压满整屏时用它；与引用卡同一段交替出现，不要同屏。",
+  "avoid": "要强调一句原话时用引用卡（这张只做署名，没有引文位）。",
+  "pickWith": ["kb-demo-pack-signature"],
+  "role": "信息",
+  "slot": "段中",
+  "quota": "≤2次",
+  "selfChecks": [
+    "名字与身份两行都不超长（12 / 18 字）",
+    "压在字幕带之上，不与字幕重叠",
+    "整条只在片子里出现不超过 2 次"
+  ],
+  "source": { "repo": "house", "ref": "", "path": "", "license": "house", "method": "house" }
+}

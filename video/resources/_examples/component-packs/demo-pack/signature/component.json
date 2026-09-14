@@ -1,0 +1,14 @@
+{
+  "name": "署名条（示例）",
+  "summary": "画面左下角的两行署名：名字 + 身份，带一条强调色的短线。",
+  "width": 1920,
+  "height": 1080,
+  "durationSeconds": 3,
+  "fields": [
+    { "key": "name", "label": "名字", "type": "text", "defaultValue": "张三", "maxLength": 12, "required": true },
+    { "key": "role", "label": "身份", "type": "text", "defaultValue": "内容创作者", "maxLength": 18 },
+    { "key": "accent", "label": "强调色", "type": "color", "defaultValue": "#E0714A" }
+  ],
+  "html": "<style>#{{id}} .sig{position:absolute;left:8%;bottom:12%;display:flex;flex-direction:column;gap:6px;font-family:var(--mg-font,system-ui);color:#15171c}#{{id}} .bar{width:46px;height:4px;border-radius:2px;background:{{accent}}}#{{id}} .n{font-size:38px;font-weight:700;line-height:1.1}#{{id}} .r{font-size:22px;opacity:.72}</style><div class=\"sig\"><span class=\"bar\"></span><span class=\"n\">{{name}}</span><span class=\"r\">{{role}}</span></div>",
+  "timeline": "tl.fromTo('#{{id}} .sig', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0);"
+}

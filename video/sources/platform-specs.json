@@ -1,0 +1,53 @@
+{
+  "kind": "video-source/platform-specs",
+  "schema": 1,
+  "title": "平台交付规格（我们的取舍）",
+  "summary": "每个平台发什么画幅、用哪个预设 id、我们自己接受的最长时长，以及字幕安全带的习惯。",
+  "tags": ["视频", "平台", "发布", "规格"],
+  "domain": ["短视频"],
+  "owner": "人",
+  "updated": "2026-09-15",
+  "usage": "交付前读它：按 platforms.<平台>.presetId 调 videoStudio__check({presetId}) 与 videoStudio__export({preset})；lengthBudgetSeconds 是我们自己的上限（比平台的硬上限更紧，超了就砍内容而不是降质）。平台的硬数值（分辨率/码率/响度/安全区）以工作台的预设表为准，这里只写取舍与习惯。",
+  "platforms": {
+    "抖音": {
+      "presetId": "douyin",
+      "role": "主阵地",
+      "lengthBudgetSeconds": 60,
+      "captionHabit": "竖屏整句硬现，底部留出互动栏（字幕带之上不放元素）",
+      "notes": "钩子在前 2 秒；一条片子只讲一件事"
+    },
+    "小红书": {
+      "presetId": "xiaohongshu",
+      "role": "次阵地",
+      "lengthBudgetSeconds": 45,
+      "captionHabit": "竖屏，底部留文案区",
+      "notes": "封面与首帧要能当笔记封面用"
+    },
+    "视频号": {
+      "presetId": "wechat-channels",
+      "role": "分发",
+      "lengthBudgetSeconds": 90,
+      "captionHabit": "同抖音（右侧互动栏）",
+      "notes": "偏熟人与转发，结论前置"
+    },
+    "B 站": {
+      "presetId": "bilibili",
+      "role": "长内容",
+      "lengthBudgetSeconds": 600,
+      "captionHabit": "横屏，字幕离底一档（播放器控件在下沿）",
+      "notes": "可以讲三段以上；教程素材优先落这里"
+    },
+    "YouTube": {
+      "presetId": "youtube",
+      "role": "存档",
+      "lengthBudgetSeconds": 900,
+      "captionHabit": "横屏",
+      "notes": "同一支母版可另存一份发这里"
+    }
+  },
+  "defaults": {
+    "vertical": "抖音",
+    "horizontal": "B 站",
+    "captionSafeBottomRatio": 0.2
+  }
+}

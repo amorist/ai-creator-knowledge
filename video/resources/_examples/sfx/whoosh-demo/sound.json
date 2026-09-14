@@ -1,0 +1,11 @@
+{
+  "label": "轻扫（示例草稿）",
+  "description": "转场接缝上的一记短促轻扫；本示例的 whoosh.wav 是脚本生成的 0.3 秒静音，只为演示形状。",
+  "file": "whoosh.wav",
+  "durationInSeconds": 0.3,
+  "syncPointSeconds": 0.06,
+  "group": "transition-emphasis",
+  "aliases": ["转场", "轻扫", "呼啸", "示例"],
+  "license": "house",
+  "source": "本仓库示例（node 脚本生成的静音 WAV）"
+}

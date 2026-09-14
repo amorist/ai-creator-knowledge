@@ -46,6 +46,14 @@ git add -A && git commit -m "init my knowledge base" && git push
 |---|---|
 | `skills/<name>/SKILL.md` | 一个可调用的 agent 技能（对话里直接生效） |
 | `templates/<name>/SKILL.md` | 同上 |
+| `video/skills/<name>/SKILL.md` | 同上（视频垂类的技能，一样平铺部署） |
+| `video/sources/<id>.json` | **不是技能**：进检索索引；做视频时被 `knowledge__recall` 召回，agent 读原文用 |
+| `video/resources/component-packs/…` | **直接进视频工作台的资源库**：卡能在编辑器里插、能被 `component_find` 筛到（两半 JSON 缺一不可） |
+| `video/resources/luts/*.cube` | 调色表进用户 LUT（内容寻址、重复同步不涨条目） |
+| `video/resources/sfx/<slug>/` | 音效叠加进音效库（`sound.json` + 音频；`durationInSeconds` 必填） |
+| `video/resources/transitions/` · `effects/` · `shaders/` | 转场 / 特效 / GLSL 片元程序进特效目录，资源库与 `library_list` 里可见 |
+| `video/resources/templates/<slug>/template.json` | 成片模板进模板面板（可套用成整支片） |
+| `video/resources/fonts.json` · `models.json` | **只声明**（不搬字节）：字库与烘焙模型都在需要时按需下载 |
 | `learnings/` `assets/` `docs/` `profile/` 里的 `.md` | 可被 `knowledge__recall` 检索的条目 |
 | `feeds/*.md` | 灵感面板里真实的订阅（分组、排序、备注都在） |
 
